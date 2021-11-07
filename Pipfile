@@ -4,8 +4,12 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
+psycopg2 = "*"
+cassandra-driver = "*"
+pandas = "*"
 
 [dev-packages]
+ipykernel = "*"
 
 [requires]
 python_version = "3.8"
