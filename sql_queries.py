@@ -1,3 +1,13 @@
+"""
+Postgres queries for Sparkify DB
+
+Queries are for:
+- Drop existing tables
+- Create required tables
+- Insert record queries
+- Select queries
+"""
+
 # DROP TABLES
 
 songplay_table_drop = "DROP TABLE IF EXISTS songplays;"
@@ -29,7 +39,6 @@ time_table_create = """
 """
 
 # INSERT RECORDS
-# https://www.postgresqltutorial.com/postgresql-upsert/
 
 songplay_table_insert = """
     INSERT INTO songplays (start_time, user_id, level, song_id, artist_id, session_id, location, user_agent)
