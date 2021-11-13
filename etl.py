@@ -25,14 +25,38 @@ def process_song_file(cur, filepath):
     df = pd.read_json(filepath, lines=True)
 
     # insert song record
-    song_data = df[["song_id", "title", "artist_id", "year", "duration"]].values[0].tolist()
+    song_data = (
+        df[
+            [
+                "song_id",
+                "title",
+                "artist_id",
+                "year",
+                "duration",
+            ]
+        ]
+        .values[0]
+        .tolist()
+    )
     try:
         cur.execute(song_table_insert, song_data)
     except psycopg2.Error as e:
         print(e)
 
     # insert artist record
-    artist_data = df[["artist_id", "artist_name", "artist_location", "artist_latitude", "artist_longitude"]].values[0].tolist()
+    artist_data = (
+        df[
+            [
+                "artist_id",
+                "artist_name",
+                "artist_location",
+                "artist_latitude",
+                "artist_longitude",
+            ]
+        ]
+        .values[0]
+        .tolist()
+    )
     try:
         cur.execute(artist_table_insert, artist_data)
     except psycopg2.Error as e:
@@ -66,7 +90,15 @@ def process_log_file(cur, filepath):
         t.dt.year,
         t.dt.weekday,
     )
-    column_labels = ("timestamp", "hour", "day", "week_of_year", "month", "year", "weekday")
+    column_labels = (
+        "timestamp",
+        "hour",
+        "day",
+        "week_of_year",
+        "month",
+        "year",
+        "weekday",
+    )
     time_dict = {column_labels[i]: time_data[i] for i in range(len(column_labels))}
     time_df = pd.DataFrame(time_dict)
 
@@ -74,7 +106,15 @@ def process_log_file(cur, filepath):
         cur.execute(time_table_insert, list(row))
 
     # load user table
-    user_df = df[["userId", "firstName", "lastName", "gender", "level"]]
+    user_df = df[
+        [
+            "userId",
+            "firstName",
+            "lastName",
+            "gender",
+            "level",
+        ]
+    ]
     user_df = user_df.drop_duplicates()
 
     # insert user records
@@ -97,7 +137,16 @@ def process_log_file(cur, filepath):
             songid, artistid = None, None
 
         # insert songplay record
-        songplay_data = (row.timestamp, row.userId, row.level, songid, artistid, row.sessionId, row.location, row.userAgent)
+        songplay_data = (
+            row.timestamp,
+            row.userId,
+            row.level,
+            songid,
+            artistid,
+            row.sessionId,
+            row.location,
+            row.userAgent,
+        )
         cur.execute(songplay_table_insert, songplay_data)
 
 

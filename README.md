@@ -6,7 +6,7 @@ The startup, Sparkify, is a music streaming app and wants to analyse what songs 
 
 ## Data model
 
-Data was normalized into a start schema with fact and dimention tables in order to use data for the analysis but also reuse data for future analysis.
+Data was normalized into a start schema with fact and dimention tables in order to use data for the analysis but also reuse data for future analysis. On the `songplays` table, there is only one row that mathces both `song_id` and `artist_id` as the provided dataset is only a subset of the larger dataset.
 
 ![Data model](images/diagram.png)
 
